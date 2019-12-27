@@ -11,10 +11,10 @@ NUM_CLASSES = 4
 
 def net_load(model_name):
 
-    Net=NET_FCN.Net(NumClasses=NUM_CLASSES)
-    Net.load_state_dict(torch.load(liquid_segmentation_model))
+    Net=NET_FCN.Net(NumClasses=NUM_CLASSES, UseGPU=False)
+    Net.load_state_dict(torch.load(liquid_segmentation_model, map_location='cpu'))
     Net.eval()
-    Net.half()
+    # Net.half()
 
     return Net
 

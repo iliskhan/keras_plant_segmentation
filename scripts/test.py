@@ -1,5 +1,6 @@
 import os
 import cv2
+import imutils
 
 import numpy as np 
 from get_segment import get_liquid_pixels
@@ -34,15 +35,18 @@ def main():
 
     model = model_loader(model_name, "../models/fcn_best.h5")
 
-    img = cv2.imread("../data/test/imgs/photo_2019-12-20_18-03-14.jpg")
+    img = cv2.imread("img.jpg")
 
     start = time()
     liquid_img = get_liquid_pixels(img)
-    plant_mask = predict_mask(liquid_img, model)
+    plant_mask = predict_mask(img, model)
     print(time() - start)
     
     res = cv2.bitwise_or(liquid_img, liquid_img,  mask=plant_mask)
-    cv2.imshow('liquid', liquid_img)
+
+    res = imutils.resize(res, height=800)
+    img = imutils.resize(img, height=800)
+    cv2.imshow('liquid', img)
     cv2.imshow('img', res)
     cv2.waitKey(0)
 
