@@ -4,4 +4,5 @@
 *.torch
 *.pyc
 *.log
+*.rar
 log/
